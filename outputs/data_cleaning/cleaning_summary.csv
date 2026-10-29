@@ -1,0 +1,8 @@
+class_name,candidate_files,valid_images_before_cleaning,invalid_or_unusable_files,exact_duplicate_same_label_excluded,cross_label_conflict_excluded,images_in_clean_dataset
+billete,777,777,0,0,0,777
+knife,2349,2349,0,0,0,2349
+monedero,813,813,0,0,0,813
+pistol,3975,3975,0,1,0,3974
+smartphone,1184,1184,0,0,0,1184
+tarjeta,446,446,0,0,0,446
+__overall__,9544,9544,0,1,0,9543

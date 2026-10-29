@@ -1,0 +1,35 @@
+# Python environment and cache
+.venv/
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local credentials and agent state
+.aws/
+.agents/
+.codex/
+
+# Downloaded/raw dataset (never version large image collections)
+Sohas_weapon-Classification/
+
+# Generated resize branches, split files, HOG arrays, and temporary buffers
+dataset/original
+dataset/resized/
+dataset/features/
+dataset/split.csv
+dataset/split_summary.csv
+dataset/sohas_hog_*/
+
+# Local logs and incomplete processing output
+*.log
+*.tmp
+*.bak

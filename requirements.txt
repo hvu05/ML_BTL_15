@@ -1,0 +1,7 @@
+# Image validation, manifest creation, and B1 figures
+Pillow==12.1.1
+
+# Resize branches and HOG feature arrays
+numpy==2.3.5
+opencv-python-headless==5.0.0.93
+scikit-image==0.26.0

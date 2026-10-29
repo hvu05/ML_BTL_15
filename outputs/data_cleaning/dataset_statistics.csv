@@ -1,0 +1,8 @@
+class_name,valid_image_count,percentage_of_valid_images,width_min,width_median,width_max,height_min,height_median,height_max,aspect_ratio_min,aspect_ratio_median,aspect_ratio_max,format_distribution,invalid_file_count,missing_label_file_count,class_imbalance_ratio_max_to_min
+billete,777,8.141241,20,254.0,1815,14,216.0,1310,0.281407,1.210667,8.207317,"{""JPEG"": 777}",0,0,
+knife,2349,24.612322,25,156.0,2743,22,148.0,2819,0.170294,1.166295,5.904192,"{""JPEG"": 2349}",0,0,
+monedero,813,8.518441,27,258.0,1826,23,231.0,1616,0.352381,1.150943,4.130435,"{""JPEG"": 813}",0,0,
+pistol,3975,41.649204,6,156.0,1915,6,124.0,1651,0.139535,1.33913,5.386364,"{""JPEG"": 3975}",0,0,
+smartphone,1184,12.4057,19,397.0,1916,16,559.0,1919,0.049797,0.726421,19.684211,"{""JPEG"": 1184}",0,0,
+tarjeta,446,4.673093,25,186.5,1068,19,145.0,760,0.42963,1.381898,5.793103,"{""JPEG"": 446}",0,0,
+__overall__,9544,100.0,6,182.0,2743,6,164.0,2819,0.049797,1.25,19.684211,"{""JPEG"": 9544}",0,0,8.912556

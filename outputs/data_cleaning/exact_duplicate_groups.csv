@@ -1,0 +1,3 @@
+duplicate_group_id,sha256,group_size,duplicate_files_beyond_first,is_cross_class,image_id,relative_path,class_name
+exact_966cb744c11d1a50,966cb744c11d1a502d1daf2a32f896e247bc7df706f8b50b0683cf175464e8b8,2,1,False,pistol/pistol_0463_box1.jpg,pistol/pistol_0463_box1.jpg,pistol
+exact_966cb744c11d1a50,966cb744c11d1a502d1daf2a32f896e247bc7df706f8b50b0683cf175464e8b8,2,1,False,pistol/pistol_0566_box1.jpg,pistol/pistol_0566_box1.jpg,pistol
