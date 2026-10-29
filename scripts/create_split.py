@@ -23,7 +23,11 @@ def main() -> int:
         rng = random.Random(f"{a.seed}:{label}"); rng.shuffle(label_groups); label_groups.sort(key=len, reverse=True)
         targets = {name: len([r for group in label_groups for r in group]) * ratio for name, ratio in ratios.items()}; counts = {name: 0 for name in ratios}
         for members in label_groups:
-            split = min(ratios, key=lambda name: ((counts[name] + len(members) - targets[name]) ** 2, counts[name], name))
+            # Assign the next group to the split with the largest remaining quota.
+            # This preserves the target 4/1/1 proportions within each class instead
+            # of filling the smaller validation/test quotas before train.
+            priority = {"train": 2, "val": 1, "test": 0}
+            split = max(ratios, key=lambda name: (targets[name] - counts[name], priority[name]))
             counts[split] += len(members)
             for r in members: output_rows.append({"image_id": r["image_id"], "relative_path": r["relative_path"], "class_name": label, "split": split, "split_group_id": r["split_group_id"], "split_group_source": r["split_group_source"], "sha256": r["sha256"]})
     output_rows.sort(key=lambda r: r["image_id"]); a.output.parent.mkdir(parents=True, exist_ok=True)
