@@ -18,7 +18,7 @@ FAIL_COLUMNS = ["source_image_id", "source_relative_path", "class_name", "branch
 
 def args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--manifest", type=Path, default=Path("outputs/b1/clean_manifest.csv"))
+    p.add_argument("--manifest", type=Path, default=Path("outputs/data_cleaning/clean_manifest.csv"))
     p.add_argument("--dataset-root", type=Path, default=Path("Sohas_weapon-Classification"))
     p.add_argument("--output-root", type=Path, default=Path("dataset"))
     p.add_argument("--target-size", type=int, default=224)

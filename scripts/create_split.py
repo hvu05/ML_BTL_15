@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description=__doc__); p.add_argument("--manifest", type=Path, default=Path("outputs/b1/clean_manifest.csv")); p.add_argument("--output", type=Path, default=Path("dataset/split.csv")); p.add_argument("--summary", type=Path, default=Path("dataset/split_summary.csv")); p.add_argument("--seed", type=int, default=42); a = p.parse_args()
+    p = argparse.ArgumentParser(description=__doc__); p.add_argument("--manifest", type=Path, default=Path("outputs/data_cleaning/clean_manifest.csv")); p.add_argument("--output", type=Path, default=Path("dataset/split.csv")); p.add_argument("--summary", type=Path, default=Path("dataset/split_summary.csv")); p.add_argument("--seed", type=int, default=42); a = p.parse_args()
     with a.manifest.open(encoding="utf-8", newline="") as f: rows = [r for r in csv.DictReader(f) if r["is_valid"] == "True" and r["is_in_clean_dataset"] == "True"]
     groups: dict[str, list[dict[str, str]]] = defaultdict(list)
     for r in rows:

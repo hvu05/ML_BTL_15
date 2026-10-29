@@ -7,7 +7,7 @@ Project đã chuẩn bị dữ liệu SOHAS theo luồng: Dataset Collection + E
 
 ```text
 Sohas_weapon-Classification/   # ảnh raw theo 6 thư mục lớp, không chỉnh sửa
-outputs/b1/                    # metadata, thống kê và cleaning của B1
+outputs/data_cleaning/         # metadata, thống kê và cleaning của B1
 scripts/                       # mã nguồn chạy pipeline
 dataset/                       # ảnh resize, split và HOG sinh ra khi chạy B2/B3
 ```
@@ -15,7 +15,7 @@ dataset/                       # ảnh resize, split và HOG sinh ra khi chạy 
 ## Chức năng từng thư mục
 
 - `Sohas_weapon-Classification/`: dataset gốc gồm 6 lớp `billete`, `knife`, `monedero`, `pistol`, `smartphone`, `tarjeta`.
-- `outputs/b1/clean_manifest.csv` là nguồn quyết định ảnh nào được phép dùng tiếp (`is_in_clean_dataset=True`).
+- `outputs/data_cleaning/clean_manifest.csv` là nguồn quyết định ảnh nào được phép dùng tiếp (`is_in_clean_dataset=True`).
 - `scripts/`: các script CLI; không sửa raw data.
 - `dataset/original/`: symlink tới dataset gốc, không phải bản copy.
 - `dataset/resized/direct/`: ảnh `224×224` resize trực tiếp, có manifest và log lỗi riêng.
@@ -53,7 +53,7 @@ source .venv/bin/activate
 # Cài dependency
 python -m pip install -r requirements.txt
 ```
-
+Link dataset [Kanggle Dataset Sohas](https://www.kaggle.com/datasets/natansantosmoura/sohas-classification?resource=download-directory)
 Dataset SOHAS phải nằm tại `Sohas_weapon-Classification/`. Nếu chưa có kết quả B1, cần chạy các script B1 để tạo `outputs/data_cleaning/clean_manifest.csv` trước.
 
 ## 4. Hướng dẫn chạy tiền xử lý
