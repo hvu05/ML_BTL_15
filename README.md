@@ -87,3 +87,21 @@ python scripts/extract_hog_by_split.py --branch padding
 - Ảnh `224×224` tạo 26.244 đặc trưng `float32`.
 
 Mỗi file HOG `.npz` chứa `X`, `y`, `split`, `class_names`, `image_ids`, `relative_paths`, `sha256`, metadata duplicate và cấu hình HOG. Khi train, chỉ fit các biến đổi học được (ví dụ `StandardScaler`) trên dòng có `split == "train"`.
+
+## 5. Huấn luyện và Đánh giá Mô hình SVM
+
+Script `scripts/train_svm.py` thực hiện:
+- Chuẩn hóa đặc trưng bằng `StandardScaler(with_mean=False)` (chỉ fit trên `train`, áp dụng cho `val`/`test`).
+- Xử lý mất cân bằng lớp (8.9:1) bằng `class_weight='balanced'`.
+- Tinh chỉnh siêu tham số $C \in [0.001, 100]$ trên tập `val` và vẽ đường cong validation curve.
+- Huấn luyện `LinearSVC` (tối ưu lồi trên 26k chiều HOG).
+- Huấn luyện `SVC(RBF)` sau khi giảm chiều bằng Randomized PCA (256 chiều).
+- Xuất toàn bộ bảng chỉ số (Accuracy, Balanced Accuracy, Macro Precision/Recall/F1), ma trận nhầm lẫn chuẩn hóa (Confusion Matrix heatmap) và danh sách ảnh dự đoán sai (Error Analysis).
+
+```bash
+# Chạy huấn luyện và đánh giá trên cả hai nhánh
+python scripts/train_svm.py --branches direct padding
+```
+
+Toàn bộ kết quả thực nghiệm, biểu đồ và trọng số mô hình được lưu tại `outputs/svm/`.
+
