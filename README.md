@@ -53,8 +53,8 @@ source .venv/bin/activate
 # Cài dependency
 python -m pip install -r requirements.txt
 ```
-Link dataset [Kanggle Dataset Sohas](https://www.kaggle.com/datasets/natansantosmoura/sohas-classification?resource=download-directory)
-Dataset SOHAS phải nằm tại `Sohas_weapon-Classification/`. Nếu chưa có kết quả B1, cần chạy các script B1 để tạo `outputs/data_cleaning/clean_manifest.csv` trước.
+Dataset gốc được phát hành tại [SOHAS Classification trên Kaggle](https://www.kaggle.com/datasets/natansantosmoura/sohas-classification?resource=download-directory). Kaggle chỉ là nguồn tải dữ liệu; project không phụ thuộc Kaggle runtime, API hoặc GPU.
+Sau khi tải, đặt dataset tại `Sohas_weapon-Classification/`. Nếu chưa có kết quả B1, chạy các script B1 để tạo `outputs/data_cleaning/clean_manifest.csv` trước.
 
 ## 4. Hướng dẫn chạy tiền xử lý
 

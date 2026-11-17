@@ -403,7 +403,7 @@ def main() -> int:
         all_per_class.append(test_pc)
 
         # Save model
-        joblib.dump(linear_pipeline, args.output_dir / f"linear_svm_{branch}_model.joblib")
+        joblib.dump(linear_pipeline, args.output_dir / f"linearsvc_{branch}_model.joblib")
 
         # Confusion Matrix for LinearSVC
         cm_linear = confusion_matrix(y_test, test_pred)
@@ -447,7 +447,7 @@ def main() -> int:
         )
 
         pd.DataFrame(rbf_tuning_hist).to_csv(
-            args.output_dir / f"tuning_rbf_svc_{branch}.csv", index=False
+            args.output_dir / f"tuning_rbf_{branch}.csv", index=False
         )
 
         # Train final RBF model
@@ -463,6 +463,12 @@ def main() -> int:
         )
         rbf_clf.fit(X_tr_pca, y_train)
         rbf_train_time = time.time() - t0
+        rbf_pipeline = Pipeline([
+            ("scaler", pca_scaler),
+            ("pca", pca),
+            ("clf", rbf_clf),
+        ])
+        joblib.dump(rbf_pipeline, args.output_dir / f"rbf_svc_{branch}_model.joblib")
 
         rbf_val_pred = rbf_clf.predict(X_va_pca)
         rbf_val_sum, rbf_val_pc = evaluate_predictions(y_val, rbf_val_pred, class_names, "SVC(RBF+PCA)", branch, "val", rbf_train_time)
@@ -481,6 +487,15 @@ def main() -> int:
             class_names,
             f"Normalized Confusion Matrix - RBF SVC ({branch.title()})",
             args.output_dir / f"confusion_matrix_rbf_{branch}.png",
+        )
+
+        analyze_misclassifications(
+            y_test,
+            rbf_test_pred,
+            test_ids,
+            test_paths,
+            class_names,
+            args.output_dir / f"misclassifications_rbf_{branch}.csv",
         )
 
     # -----------------------------------------------------------------
