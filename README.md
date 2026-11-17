@@ -56,7 +56,18 @@ python -m pip install -r requirements.txt
 Dataset gốc được phát hành tại [SOHAS Classification trên Kaggle](https://www.kaggle.com/datasets/natansantosmoura/sohas-classification?resource=download-directory). Kaggle chỉ là nguồn tải dữ liệu; project không phụ thuộc Kaggle runtime, API hoặc GPU.
 Sau khi tải, đặt dataset tại `Sohas_weapon-Classification/`. Nếu chưa có kết quả B1, chạy các script B1 để tạo `outputs/data_cleaning/clean_manifest.csv` trước.
 
-## 4. Hướng dẫn chạy tiền xử lý
+## 4. Chạy dashboard bằng Docker
+
+Docker image đóng gói mã nguồn, dependency và các model trong `outputs/svm/`; không cần dataset gốc để thử chức năng dự đoán.
+
+```bash
+docker build -t sohas-weapon-classification .
+docker run --rm -p 8501:8501 sohas-weapon-classification
+```
+
+Sau khi container khởi động, mở `http://localhost:8501`. Dataset gốc và các file trung gian trong `dataset/` được loại khỏi Docker image để giữ build context gọn.
+
+## 5. Hướng dẫn chạy tiền xử lý
 
 Chạy các lệnh sau từ thư mục root của project.
 
@@ -88,7 +99,7 @@ python scripts/extract_hog_by_split.py --branch padding
 
 Mỗi file HOG `.npz` chứa `X`, `y`, `split`, `class_names`, `image_ids`, `relative_paths`, `sha256`, metadata duplicate và cấu hình HOG. Khi train, chỉ fit các biến đổi học được (ví dụ `StandardScaler`) trên dòng có `split == "train"`.
 
-## 5. Huấn luyện và Đánh giá Mô hình SVM
+## 6. Huấn luyện và Đánh giá Mô hình SVM
 
 Script `scripts/train_svm.py` thực hiện:
 - Chuẩn hóa đặc trưng bằng `StandardScaler(with_mean=False)` (chỉ fit trên `train`, áp dụng cho `val`/`test`).
