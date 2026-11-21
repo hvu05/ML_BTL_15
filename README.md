@@ -81,11 +81,25 @@ Sohas_weapon-Classification/
 
 ## 4. Chạy dashboard với mô hình đã huấn luyện
 
-Dashboard dùng ảnh bạn tải lên và ba file mô hình có sẵn trong thư mục bài làm.
+Dashboard dùng ảnh bạn tải lên và ba file mô hình sau.
 
 - `outputs/svm/rbf_svc_direct_model.joblib`
 - `outputs/svm/linearsvc_direct_model.joblib`
 - `outputs/logistic_regression/lr_padding_model.joblib`
+
+Nếu `outputs/svm/` chưa có `rbf_svc_direct_model.joblib` (file zip nộp bài không kèm file này vì giới hạn dung lượng), tải file về đúng vị trí trên trước khi chạy dashboard:
+
+```bash
+# Linux / macOS
+curl -L -o outputs/svm/rbf_svc_direct_model.joblib https://github.com/hvu05/ML_BTL_15/raw/main/outputs/svm/rbf_svc_direct_model.joblib
+```
+
+```powershell
+# Windows PowerShell
+Invoke-WebRequest -Uri https://github.com/hvu05/ML_BTL_15/raw/main/outputs/svm/rbf_svc_direct_model.joblib -OutFile outputs/svm/rbf_svc_direct_model.joblib
+```
+
+Toàn bộ mã nguồn và model có tại <https://github.com/hvu05/ML_BTL_15>.
 
 ### Chạy bằng Docker
 
@@ -166,6 +180,8 @@ python scripts/train_svm.py --branches direct padding
 ```
 
 Toàn bộ kết quả thực nghiệm, biểu đồ và trọng số mô hình được lưu tại `outputs/svm/`.
+
+File zip nộp bài không kèm ba model `rbf_svc_direct_model.joblib`, `rbf_svc_padding_model.joblib` và `linearsvc_padding_model.joblib` vì giới hạn dung lượng. Tải tại <https://github.com/hvu05/ML_BTL_15/tree/main/outputs/svm>.
 
 
 ## 7. Huấn luyện và Đánh giá Logistic Regression
