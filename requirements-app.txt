@@ -1,0 +1,8 @@
+# Runtime dependencies for the Streamlit app (app.py) only.
+# scikit-learn must stay at 1.6.1: the .joblib models were saved with it.
+joblib==1.4.2
+numpy==2.2.2
+opencv-python-headless==4.10.0.84
+scikit-image==0.25.2
+scikit-learn==1.6.1
+streamlit==1.41.1

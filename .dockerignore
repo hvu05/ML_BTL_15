@@ -13,3 +13,7 @@ __pycache__
 *.bak
 Sohas_weapon-Classification
 dataset
+notebooks
+report
+outputs/logistic_regression
+!outputs/logistic_regression/lr_padding_model.joblib

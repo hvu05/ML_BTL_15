@@ -54,7 +54,7 @@ def predict_image(image_path: Path, model_path: Path) -> dict:
 
     # 1. Resize direct 224x224
     h, w = img.shape[:2]
-    interp = cv2.INTER_AREA if (w > 224 or h > 224) else cv2.INTER_LINEAR
+    interp = cv2.INTER_CUBIC if (w < 224 and h < 224) else cv2.INTER_AREA
     resized = cv2.resize(img, (224, 224), interpolation=interp)
 
     # 2. HOG extraction (26,244 dims)

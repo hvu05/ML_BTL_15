@@ -1,0 +1,12 @@
+{
+  "model": "Baseline LR (26k đặc trưng)",
+  "test_metrics": {
+    "accuracy": 0.6775818639798489,
+    "balanced_acc": 0.5856830522322646,
+    "macro_f1": 0.5767181563432546,
+    "weighted_f1": 0.6818255176094575,
+    "mcc": 0.5686391312930674,
+    "log_loss": 2.172805709711428,
+    "roc_auc_ovr_macro": 0.8751759653965716
+  }
+}
