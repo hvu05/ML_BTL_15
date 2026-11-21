@@ -1,0 +1,16 @@
+\section{Cơ sở học máy của bài toán}
+\label{sec:hoc_may}
+
+\subsection{Phân loại có giám sát}
+
+Trong học có giám sát (supervised learning), mỗi mẫu huấn luyện đi kèm một giá trị đích. Ở bài toán phân loại, giá trị đích là nhãn của một lớp. Cụ thể, mỗi ảnh đã cắt quanh vật thể trong SOHAS có một trong sáu nhãn. Nhóm biểu diễn mỗi ảnh bằng vectơ HOG rồi huấn luyện SVM và hồi quy logistic để dự đoán nhãn cho ảnh mới. Chương~\ref{sec:mo_hinh} trình bày cơ sở toán học của các mô hình này.
+
+Nhóm dùng tập train để ước lượng tham số mô hình và tập validation để chọn cấu hình. Kết quả trên tập test cho biết mô hình đã chọn dự đoán ra sao trên dữ liệu được giữ riêng. Chênh lệch lớn giữa kết quả trên tập train và tập validation là một dấu hiệu của quá khớp (overfitting), tức mô hình dự đoán tốt trên dữ liệu đã dùng để học nhưng tổng quát hóa kém hơn trên dữ liệu mới.
+
+\subsection{Giảm chiều bằng PCA}
+
+PCA tìm các hướng mà dữ liệu biến thiên nhiều nhất rồi chiếu dữ liệu lên một số hướng đầu tiên. Phép biến đổi này chỉ dùng vectơ đặc trưng và có thể được ước lượng mà không cần nhãn lớp. Trong đồ án, PCA giảm vectơ HOG từ 26.244 xuống 256 chiều trước khi huấn luyện SVM RBF. Nhóm ước lượng phép chiếu trên tập train rồi áp dụng cùng phép chiếu cho hai tập còn lại.
+
+\subsection{Đánh giá trên dữ liệu mất cân bằng}
+
+Khi số mẫu giữa các lớp chênh lệch, độ chính xác chung chủ yếu phản ánh kết quả trên những lớp có nhiều mẫu. Nhóm dùng macro-F1, tức trung bình cộng điểm F1 của sáu lớp, để mỗi lớp có trọng số như nhau trong chỉ số tổng hợp. Báo cáo cũng trình bày kết quả theo từng lớp để chỉ ra những nhóm ảnh mà mô hình thường phân loại sai. Mục~\ref{sec:metrics} định nghĩa các chỉ số được sử dụng.

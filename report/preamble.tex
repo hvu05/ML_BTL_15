@@ -1,0 +1,105 @@
+\usepackage{iftex}
+
+% --- Tiếng Việt ---
+% pdfLaTeX (Overleaf mặc định): dùng mã hóa T5 của gói vntex.
+% XeLaTeX/LuaLaTeX: dùng fontspec với font Unicode.
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T5]{fontenc}
+\else
+  \usepackage{fontspec}
+  \setmainfont{TeX Gyre Termes}
+  \setmonofont{DejaVu Sans Mono}[Scale=0.85]
+\fi
+% Giữ dấu ngoặc kép nguyên văn trong tên cấu hình như \texttt{"scale"}.
+\usepackage[vietnamese,shorthands=off]{babel}
+
+% --- Lề và khoảng cách ---
+\usepackage[left=3cm,right=2cm,top=3.5cm,bottom=3cm,
+            headheight=40pt,headsep=14pt,footskip=36pt]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+
+\usepackage{etoolbox}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\makeatletter
+\renewcommand{\p@subsection}{}
+\renewcommand{\p@subsubsection}{}
+\patchcmd{\section}{\Large}{\fontsize{20.74pt}{25pt}\selectfont}{}{}
+% Chừa đủ chỗ cho số La Mã trước tiêu đề trong mục lục.
+\patchcmd{\l@section}{1.5em}{2.25em}{}{}
+\makeatother
+
+% --- Toán ---
+\usepackage{amsmath,amssymb,amsfonts,bm}
+
+% --- Hình, bảng ---
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+
+% --- Danh sách ---
+\usepackage{enumitem}
+\setlist{itemsep=0.2em,topsep=0.3em}
+
+% --- Đoạn mã ---
+\usepackage{listings}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{blue!12},
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{green!40!black}\itshape,
+  stringstyle=\color{red!80!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=6pt,
+  frame=single,
+  rulecolor=\color{white},
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=4,
+  xleftmargin=1.5em,
+  framexleftmargin=1.2em,
+  captionpos=b,
+}
+\renewcommand{\lstlistingname}{Đoạn mã}
+
+% --- Liên kết ---
+\usepackage[hidelinks,unicode]{hyperref}
+
+% --- Tiêu đề trang ---
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{%
+  \begin{tabular}{@{}m{10mm}@{\hspace{6pt}}l@{}}
+    \includegraphics[width=10mm]{logo_bk.png} &
+    \shortstack[l]{%
+      \fontsize{10}{12}\selectfont\ttfamily TRƯỜNG ĐẠI HỌC BÁCH KHOA -- ĐHQG-HCM\\
+      \fontsize{10}{12}\selectfont\ttfamily KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}%
+  \end{tabular}%
+}
+\fancyfoot[L]{\scriptsize\ttfamily Bài tập lớn Học máy (CO3117)}
+\fancyfoot[R]{\scriptsize\ttfamily Trang \thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Ô đánh dấu những chỗ nhóm cần tự điền
+\newcommand{\todo}[1]{\textcolor{red}{[#1]}}

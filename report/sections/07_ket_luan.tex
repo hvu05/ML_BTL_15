@@ -1,0 +1,47 @@
+\section{Kết luận}
+\label{sec:ket_luan}
+
+\subsection{Kết luận chung}
+
+Nhóm xây dựng và đánh giá một quy trình phân loại sáu lớp vật thể cầm tay trên bộ dữ liệu SOHAS. Sau khi làm sạch 9.544 ảnh gốc, nhóm dùng cùng một cách chia 9.543 ảnh hợp lệ để so sánh các cấu hình dựa trên HOG. Nhóm cũng xây dựng ứng dụng web để minh họa dự đoán trên từng ảnh.
+
+Các thí nghiệm cho bốn kết quả chính.
+
+\begin{enumerate}
+  \item \textbf{SVM RBF kết hợp PCA đạt điểm cao nhất trong các cấu hình được đánh giá.} Trên nhánh \emph{direct}, mô hình đạt macro-F1 0,763 và độ chính xác 83,9\% trên tập test. Khi gộp sáu lớp thành hai nhóm, tỷ lệ bỏ sót vũ khí là khoảng 1,7\% và tỷ lệ ảnh đồ vật thông thường bị phân loại nhầm thành vũ khí là khoảng 18,3\%.
+  \item \textbf{Hai cấu hình tuyến tính có macro-F1 gần nhau trên nhánh \emph{padding}.} Hồi quy logistic đạt 0,577 và SVM tuyến tính đạt 0,575. Trên cùng nhánh này, SVM RBF kết hợp PCA đạt 0,751.
+  \item \textbf{Co giãn trực tiếp cho macro-F1 cao hơn giữ tỷ lệ và đệm viền trong các thí nghiệm SVM.} Chênh lệch trên tập test là 0,055 với SVM tuyến tính và 0,013 với SVM RBF.
+  \item \textbf{Các biến thể lựa chọn đặc trưng có điểm thấp hơn mô hình hồi quy logistic cơ sở.} Với $C = 1$, các biến thể dùng ANOVA, kể cả khi kết hợp với điều chuẩn L1, có macro-F1 trên tập validation thấp hơn mô hình dùng toàn bộ đặc trưng.
+\end{enumerate}
+
+\subsection{Hạn chế}
+
+\begin{itemize}
+  \item Hồi quy logistic dùng $C = 1$ và chỉ được đánh giá trên nhánh \emph{padding}. Vì vậy, phép so sánh trên nhánh \emph{direct} chỉ gồm hai biến thể SVM.
+  \item Giá trị $C$ đạt macro-F1 cao nhất của SVM tuyến tính nằm ở biên dưới của dải khảo sát ($C = 0{,}001$).
+  \item Biến thể ANOVA kết hợp L1 chưa hội tụ sau 300 vòng lặp và khoảng 24 phút huấn luyện.
+  \item Nhóm cố định số thành phần PCA ở 256. Báo cáo chưa trình bày tỷ lệ phương sai được giữ lại hoặc so sánh các số thành phần khác.
+  \item Phạm vi thực nghiệm giới hạn ở ảnh đã cắt quanh vật thể. Khả năng xử lý toàn bộ khung hình camera cần được đánh giá riêng.
+  \item Với SVM RBF trên nhánh \emph{direct}, recall của lớp \texttt{tarjeta} là 0,50 và của lớp \texttt{monedero} là 0,55.
+  \item Nhóm chưa đánh giá liệu chênh lệch tỷ lệ ảnh phải phóng to giữa các lớp có ảnh hưởng đến dự đoán hay không.
+  \item Ứng dụng web hiển thị điểm số tương đối của SVM, chưa được hiệu chỉnh thành xác suất. Xác suất của hồi quy logistic thường cao ngay cả khi dự đoán sai. Các chỉ số đánh giá trong ứng dụng chỉ tính trên ảnh người dùng tải lên trong phiên.
+\end{itemize}
+
+\subsection{Hướng phát triển}
+
+\begin{itemize}
+  \item Khảo sát các giá trị $C$ cho hồi quy logistic và mở rộng dải tìm kiếm của SVM tuyến tính xuống dưới 0,001.
+  \item Huấn luyện hồi quy logistic trên nhánh \emph{direct} để có kết quả đối chiếu cho cả ba cấu hình trên cùng cách chuẩn hóa kích thước.
+  \item So sánh các số thành phần PCA khác nhau và khảo sát các giá trị $\gamma$ quanh giá trị do chế độ \texttt{"scale"} tính.
+  \item Tách hàm tiền xử lý thành một mô-đun dùng chung cho ứng dụng và quy trình huấn luyện. Đánh giá hiệu chỉnh điểm số SVM trước khi dùng các giá trị này để đặt ngưỡng cảnh báo.
+  \item Khảo sát đặc trưng màu sắc, chẳng hạn biểu đồ màu, để đánh giá khả năng giảm nhầm lẫn giữa thẻ ngân hàng và tiền giấy.
+  \item So sánh HOG với đặc trưng từ mạng nơ-ron tích chập đã huấn luyện sẵn trên cùng cách chia dữ liệu.
+  \item Đánh giá riêng quy trình xác định vùng chứa vật thể và phân loại nếu mở rộng sang toàn bộ khung hình camera.
+\end{itemize}
+
+\subsection{Mã nguồn và dữ liệu}
+
+\begin{itemize}
+  \item \textbf{Mã nguồn.} Kho dự án chứa mã tiền xử lý, mã huấn luyện SVM, notebook hồi quy logistic, kết quả thực nghiệm, ứng dụng web và hướng dẫn tái lập. \url{https://github.com/hvu05/ML_BTL_15}
+  \item \textbf{Dữ liệu.} Phiên bản \href{https://www.kaggle.com/datasets/natansantosmoura/sohas-classification}{SOHAS Classification trên Kaggle}.
+\end{itemize}

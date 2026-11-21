@@ -1,0 +1,56 @@
+\section{Giới thiệu đề tài}
+\label{sec:gioi_thieu}
+
+\subsection{Đặt vấn đề}
+
+Phân loại vật thể cầm tay là một bước có thể hỗ trợ phân tích ảnh giám sát. Trong bộ dữ liệu SOHAS, một phần vật thể có thể bị bàn tay che khuất. Ví hoặc điện thoại cầm ngang cũng có thể có đường viền tương tự một phần của súng ngắn.
+
+Nhóm nghiên cứu bài toán phân loại sáu lớp trên các ảnh đã cắt quanh vật thể. Hai nhóm lỗi được quan tâm là phân loại ảnh vũ khí thành đồ vật thông thường và phân loại ảnh đồ vật thông thường thành vũ khí.
+
+Nhóm đặt câu hỏi nghiên cứu sau. Khi dùng biểu đồ hướng gradient (Histogram of Oriented Gradients, HOG) để biểu diễn ảnh, các mô hình học máy truyền thống phân loại sáu lớp vật thể ở mức nào và thường nhầm lẫn giữa những lớp nào?
+
+\subsection{Lý do chọn bộ dữ liệu}
+
+Nhóm sử dụng bộ dữ liệu SOHAS Classification trên Kaggle~\cite{sohas_kaggle}. Phiên bản này dùng dữ liệu từ bộ \emph{Small Objects Handled Similarly to a weapon} (SOHAS). Bộ dữ liệu gồm hai lớp vũ khí là súng ngắn (\texttt{pistol}) và dao (\texttt{knife}), cùng bốn lớp đồ vật thông thường là tiền giấy (\texttt{billete}), ví (\texttt{monedero}), điện thoại thông minh (\texttt{smartphone}) và thẻ ngân hàng (\texttt{tarjeta}).
+
+\begin{itemize}
+  \item \textbf{Đồ vật có hình dạng tương tự.} Bốn lớp đồ vật thông thường giúp nhóm đo tỷ lệ ảnh bị phân loại nhầm thành vũ khí trên tập test.
+  \item \textbf{Phân bố lớp và kích thước ảnh không đồng đều.} Lớp đông nhất có số ảnh gấp 8,9 lần lớp ít ảnh nhất. Kích thước ảnh và mức độ che khuất cũng thay đổi giữa các mẫu. Vì vậy, nhóm báo cáo chỉ số theo từng lớp bên cạnh độ chính xác chung (accuracy).
+  \item \textbf{Quy mô phù hợp với điều kiện thực nghiệm.} Khoảng 9.500 ảnh cho phép nhóm tách riêng dữ liệu để chọn cấu hình và đánh giá kết quả. Nhóm có thể huấn luyện các mô hình khảo sát trên CPU.
+\end{itemize}
+
+\subsection{Mục tiêu nghiên cứu}
+
+Mục tiêu của đồ án là xây dựng quy trình có thể tái lập, so sánh các cấu hình phân loại và phân tích những lỗi thường gặp.
+
+\textbf{A. Mục tiêu lý thuyết}
+\begin{itemize}
+  \item Trình bày cơ sở toán học của máy vectơ hỗ trợ (Support Vector Machine, SVM) và hồi quy logistic (logistic regression) đa lớp có điều chuẩn (regularization). Nhóm khảo sát SVM tuyến tính và SVM dùng hàm cơ sở xuyên tâm (Radial Basis Function, RBF).
+  \item Trình bày cách HOG biểu diễn hướng của các cạnh trong ảnh và cách nhóm dùng phân tích thành phần chính (Principal Component Analysis, PCA) để giảm số chiều đầu vào của SVM RBF.
+\end{itemize}
+
+\textbf{B. Mục tiêu thực nghiệm}
+\begin{itemize}
+  \item Xây dựng quy trình tiền xử lý gồm kiểm tra ảnh lỗi, loại ảnh trùng, chuẩn hóa kích thước theo hai cách, chia dữ liệu theo tỷ lệ 4/1/1 và trích xuất HOG. Hai cách chuẩn hóa kích thước là co giãn trực tiếp và giữ tỷ lệ khung ảnh kết hợp đệm viền.
+  \item Huấn luyện SVM tuyến tính, SVM RBF và hồi quy logistic trên tập train (\emph{train}). Dùng tập validation (\emph{validation}) để chọn siêu tham số của SVM và chọn biến thể hồi quy logistic. Báo cáo kết quả cuối cùng trên tập test (\emph{test}).
+  \item Khảo sát lựa chọn đặc trưng (feature selection) cho hồi quy logistic bằng thống kê $F$ của phân tích phương sai (Analysis of Variance, ANOVA), đồng thời thử kết hợp lọc ANOVA với điều chuẩn L1.
+  \item Xây dựng và đóng gói ứng dụng web để minh họa dự đoán trên từng ảnh.
+\end{itemize}
+
+\subsection{Phạm vi nghiên cứu}
+
+\begin{itemize}
+  \item \textbf{Về mô hình.} Nhóm dùng SVM và hồi quy logistic từ thư viện scikit-learn~\cite{sklearn}.
+  \item \textbf{Về đặc trưng.} Nhóm chỉ sử dụng HOG trích xuất từ ảnh xám.
+  \item \textbf{Về bài toán.} Đầu vào là ảnh đã cắt quanh vật thể. Đầu ra là một trong sáu nhãn SOHAS.
+  \item \textbf{Về dữ liệu.} Các mô hình sử dụng chung cách chia 9.543 ảnh hợp lệ sau khi làm sạch.
+\end{itemize}
+
+\subsection{Kết quả thực nghiệm chính}
+
+Trên nhánh giữ tỷ lệ khung ảnh và đệm viền, SVM RBF kết hợp PCA đạt macro-F1 0,751, cao hơn SVM tuyến tính (0,575) và hồi quy logistic (0,577) trong các cấu hình đã khảo sát. Macro-F1 là trung bình điểm F1 của sáu lớp (Mục~\ref{sec:metrics}). Với cả hai biến thể SVM, nhánh co giãn trực tiếp cho macro-F1 cao hơn nhánh đệm viền.
+
+\subsection{Phạm vi ứng dụng}
+
+Trong các cấu hình được đánh giá, SVM RBF kết hợp PCA trên nhánh co giãn trực tiếp đạt macro-F1 cao nhất. Khi gộp sáu lớp thành hai nhóm, mô hình phân loại nhầm khoảng 1,7\% ảnh vũ khí thành đồ vật thông thường và khoảng 18,3\% ảnh đồ vật thông thường thành vũ khí trên tập test. Ứng dụng web minh họa cách dùng mô hình để phân loại từng ảnh đã cắt quanh vật thể.
+
